@@ -39,7 +39,7 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
             return (
               <Link
                 key={l.to}
-                to={l.to}
+                to={l.to as never}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   active ? "bg-accent text-primary border-l-2 border-primary -ml-[2px] pl-[14px]" : "text-ink hover:bg-cloud"
                 }`}
