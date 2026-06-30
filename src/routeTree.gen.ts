@@ -9,38 +9,340 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as RoommatesRouteImport } from './routes/roommates'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PostListingRouteImport } from './routes/post-listing'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as MyListingsRouteImport } from './routes/my-listings'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as HomeRouteImport } from './routes/home'
+import { Route as HelpRouteImport } from './routes/help'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingStepRouteImport } from './routes/onboarding.$step'
+import { Route as ListingIdRouteImport } from './routes/listing.$id'
+import { Route as ChatConversationIdRouteImport } from './routes/chat.$conversationId'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoommatesRoute = RoommatesRouteImport.update({
+  id: '/roommates',
+  path: '/roommates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostListingRoute = PostListingRouteImport.update({
+  id: '/post-listing',
+  path: '/post-listing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyListingsRoute = MyListingsRouteImport.update({
+  id: '/my-listings',
+  path: '/my-listings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingStepRoute = OnboardingStepRouteImport.update({
+  id: '/onboarding/$step',
+  path: '/onboarding/$step',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingIdRoute = ListingIdRouteImport.update({
+  id: '/listing/$id',
+  path: '/listing/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatConversationIdRoute = ChatConversationIdRouteImport.update({
+  id: '/$conversationId',
+  path: '/$conversationId',
+  getParentRoute: () => ChatRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/help': typeof HelpRoute
+  '/home': typeof HomeRoute
+  '/login': typeof LoginRoute
+  '/my-listings': typeof MyListingsRoute
+  '/notifications': typeof NotificationsRoute
+  '/post-listing': typeof PostListingRoute
+  '/profile': typeof ProfileRoute
+  '/roommates': typeof RoommatesRoute
+  '/saved': typeof SavedRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/signup': typeof SignupRoute
+  '/chat/$conversationId': typeof ChatConversationIdRoute
+  '/listing/$id': typeof ListingIdRoute
+  '/onboarding/$step': typeof OnboardingStepRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/help': typeof HelpRoute
+  '/home': typeof HomeRoute
+  '/login': typeof LoginRoute
+  '/my-listings': typeof MyListingsRoute
+  '/notifications': typeof NotificationsRoute
+  '/post-listing': typeof PostListingRoute
+  '/profile': typeof ProfileRoute
+  '/roommates': typeof RoommatesRoute
+  '/saved': typeof SavedRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/signup': typeof SignupRoute
+  '/chat/$conversationId': typeof ChatConversationIdRoute
+  '/listing/$id': typeof ListingIdRoute
+  '/onboarding/$step': typeof OnboardingStepRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/help': typeof HelpRoute
+  '/home': typeof HomeRoute
+  '/login': typeof LoginRoute
+  '/my-listings': typeof MyListingsRoute
+  '/notifications': typeof NotificationsRoute
+  '/post-listing': typeof PostListingRoute
+  '/profile': typeof ProfileRoute
+  '/roommates': typeof RoommatesRoute
+  '/saved': typeof SavedRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/signup': typeof SignupRoute
+  '/chat/$conversationId': typeof ChatConversationIdRoute
+  '/listing/$id': typeof ListingIdRoute
+  '/onboarding/$step': typeof OnboardingStepRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/chat'
+    | '/help'
+    | '/home'
+    | '/login'
+    | '/my-listings'
+    | '/notifications'
+    | '/post-listing'
+    | '/profile'
+    | '/roommates'
+    | '/saved'
+    | '/search'
+    | '/settings'
+    | '/signup'
+    | '/chat/$conversationId'
+    | '/listing/$id'
+    | '/onboarding/$step'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/chat'
+    | '/help'
+    | '/home'
+    | '/login'
+    | '/my-listings'
+    | '/notifications'
+    | '/post-listing'
+    | '/profile'
+    | '/roommates'
+    | '/saved'
+    | '/search'
+    | '/settings'
+    | '/signup'
+    | '/chat/$conversationId'
+    | '/listing/$id'
+    | '/onboarding/$step'
+  id:
+    | '__root__'
+    | '/'
+    | '/chat'
+    | '/help'
+    | '/home'
+    | '/login'
+    | '/my-listings'
+    | '/notifications'
+    | '/post-listing'
+    | '/profile'
+    | '/roommates'
+    | '/saved'
+    | '/search'
+    | '/settings'
+    | '/signup'
+    | '/chat/$conversationId'
+    | '/listing/$id'
+    | '/onboarding/$step'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChatRoute: typeof ChatRouteWithChildren
+  HelpRoute: typeof HelpRoute
+  HomeRoute: typeof HomeRoute
+  LoginRoute: typeof LoginRoute
+  MyListingsRoute: typeof MyListingsRoute
+  NotificationsRoute: typeof NotificationsRoute
+  PostListingRoute: typeof PostListingRoute
+  ProfileRoute: typeof ProfileRoute
+  RoommatesRoute: typeof RoommatesRoute
+  SavedRoute: typeof SavedRoute
+  SearchRoute: typeof SearchRoute
+  SettingsRoute: typeof SettingsRoute
+  SignupRoute: typeof SignupRoute
+  ListingIdRoute: typeof ListingIdRoute
+  OnboardingStepRoute: typeof OnboardingStepRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roommates': {
+      id: '/roommates'
+      path: '/roommates'
+      fullPath: '/roommates'
+      preLoaderRoute: typeof RoommatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/post-listing': {
+      id: '/post-listing'
+      path: '/post-listing'
+      fullPath: '/post-listing'
+      preLoaderRoute: typeof PostListingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-listings': {
+      id: '/my-listings'
+      path: '/my-listings'
+      fullPath: '/my-listings'
+      preLoaderRoute: typeof MyListingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +350,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/$step': {
+      id: '/onboarding/$step'
+      path: '/onboarding/$step'
+      fullPath: '/onboarding/$step'
+      preLoaderRoute: typeof OnboardingStepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listing/$id': {
+      id: '/listing/$id'
+      path: '/listing/$id'
+      fullPath: '/listing/$id'
+      preLoaderRoute: typeof ListingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/$conversationId': {
+      id: '/chat/$conversationId'
+      path: '/$conversationId'
+      fullPath: '/chat/$conversationId'
+      preLoaderRoute: typeof ChatConversationIdRouteImport
+      parentRoute: typeof ChatRoute
+    }
   }
 }
 
+interface ChatRouteChildren {
+  ChatConversationIdRoute: typeof ChatConversationIdRoute
+}
+
+const ChatRouteChildren: ChatRouteChildren = {
+  ChatConversationIdRoute: ChatConversationIdRoute,
+}
+
+const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChatRoute: ChatRouteWithChildren,
+  HelpRoute: HelpRoute,
+  HomeRoute: HomeRoute,
+  LoginRoute: LoginRoute,
+  MyListingsRoute: MyListingsRoute,
+  NotificationsRoute: NotificationsRoute,
+  PostListingRoute: PostListingRoute,
+  ProfileRoute: ProfileRoute,
+  RoommatesRoute: RoommatesRoute,
+  SavedRoute: SavedRoute,
+  SearchRoute: SearchRoute,
+  SettingsRoute: SettingsRoute,
+  SignupRoute: SignupRoute,
+  ListingIdRoute: ListingIdRoute,
+  OnboardingStepRoute: OnboardingStepRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
