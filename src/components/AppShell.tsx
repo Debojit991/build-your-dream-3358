@@ -82,7 +82,7 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
           const active = pathname.startsWith(t.to);
           if (t.primary) {
             return (
-              <Link key={t.to} to={t.to} className="flex items-center justify-center" aria-label={t.label}>
+              <Link key={t.to} to={t.to as never} className="flex items-center justify-center" aria-label={t.label}>
                 <span className="-mt-7 h-14 w-14 rounded-full bg-coral text-coral-foreground grid place-items-center shadow-lg shadow-coral/30">
                   <Icon className="h-6 w-6" />
                 </span>
@@ -92,7 +92,7 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
           return (
             <Link
               key={t.to}
-              to={t.to}
+              to={t.to as never}
               className={`flex flex-col items-center justify-center gap-0.5 ${active ? "text-primary" : "text-slate-text"}`}
             >
               <span className="relative">
