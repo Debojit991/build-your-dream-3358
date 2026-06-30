@@ -3,13 +3,14 @@ import { Home, Search, Plus, MessageCircle, User, Heart, Bell, Settings, HelpCir
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 
-const TABS = [
+type Tab = { to: string; label: string; icon: typeof Home; primary?: boolean; badge?: number };
+const TABS: Tab[] = [
   { to: "/home", label: "Home", icon: Home },
   { to: "/search", label: "Search", icon: Search },
   { to: "/post-listing", label: "Post", icon: Plus, primary: true },
   { to: "/chat", label: "Chat", icon: MessageCircle, badge: 3 },
   { to: "/profile", label: "Profile", icon: User },
-] as const;
+];
 
 const SIDE_LINKS = [
   { to: "/home", label: "Discover", icon: Home },
