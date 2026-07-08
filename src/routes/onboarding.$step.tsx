@@ -1,8 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { COLLEGES } from "@/lib/mock-data";
-import { useState } from "react";
-import { Home, Building2, Users, Upload, Lock, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Home, Building2, Upload, Lock, ChevronRight } from "lucide-react";
+import { auth, db } from "@/lib/firebase";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/onboarding/$step")({
   component: Onboarding,
@@ -23,6 +27,61 @@ function Onboarding() {
   const total = 3;
   const stepIndex = step === "role" ? 1 : step === "college" ? 2 : step === "quiz" ? 3 : 1;
 
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoadingAuth(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (loadingAuth) {
+    return (
+      <div className="min-h-screen bg-background">
+        <header className="px-4 md:px-6 h-14 flex items-center justify-between border-b bg-card">
+          <Logo size="sm" />
+          <span className="text-xs text-slate-text font-medium">Loading...</span>
+        </header>
+
+        {/* Progress dots skeleton */}
+        <div className="max-w-xl mx-auto px-4 pt-6 flex gap-2">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-1.5 flex-1 rounded-full bg-cloud" />
+          ))}
+        </div>
+
+        <div className="max-w-xl mx-auto px-4 py-8 space-y-4">
+          <div className="h-8 w-2/3 bg-cloud rounded skeleton animate-pulse" />
+          <div className="h-4 w-1/2 bg-cloud rounded skeleton animate-pulse" />
+          <div className="h-24 w-full bg-cloud rounded-xl skeleton animate-pulse" />
+          <div className="h-24 w-full bg-cloud rounded-xl skeleton animate-pulse" />
+        </div>
+      </div>
+    );
+  }
+
+  const handleRoleSelection = async (role: "seeker" | "lister") => {
+    if (currentUser) {
+      setSaving(true);
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        await setDoc(userRef, { role }, { merge: true });
+        toast.success("Role saved!");
+      } catch (err: any) {
+        console.error("Error updating role:", err);
+        toast.error(err.message || "Failed to update role. Please try again.");
+        setSaving(false);
+        return;
+      }
+      setSaving(false);
+    }
+    nav({ to: "/onboarding/$step", params: { step: "college" } });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="px-4 md:px-6 h-14 flex items-center justify-between border-b bg-card">
@@ -38,7 +97,12 @@ function Onboarding() {
       </div>
 
       <div className="max-w-xl mx-auto px-4 py-8">
-        {step === "role" && <RoleStep onNext={() => nav({ to: "/onboarding/$step", params: { step: "college" } })} />}
+        {step === "role" && (
+          <RoleStep
+            onNext={handleRoleSelection}
+            disabled={saving}
+          />
+        )}
         {step === "college" && <CollegeStep onNext={() => nav({ to: "/onboarding/$step", params: { step: "quiz" } })} />}
         {step === "quiz" && <QuizStep onDone={() => nav({ to: "/home" })} />}
       </div>
@@ -46,22 +110,22 @@ function Onboarding() {
   );
 }
 
-function RoleStep({ onNext }: { onNext: () => void }) {
+function RoleStep({ onNext, disabled }: { onNext: (role: "seeker" | "lister") => void; disabled?: boolean }) {
   const roles = [
-    { id: "seeker", icon: Home, label: "Looking for a place", body: "Browse verified PGs and flats near your campus." },
-    { id: "lister", icon: Building2, label: "Have a place to list", body: "Post your flat or PG — students see it first." },
-    { id: "both", icon: Users, label: "Both", body: "Looking for a flat and a flatmate at the same time." },
+    { id: "seeker" as const, icon: Home, label: "Looking for a place", body: "Browse verified PGs and flats near your campus." },
+    { id: "lister" as const, icon: Building2, label: "Have a place to list", body: "Post your flat or PG — students see it first." },
   ];
   return (
     <div>
       <h1 className="font-display font-bold text-2xl">What brings you to Rento Flats?</h1>
       <p className="text-slate-text text-sm mt-1">We'll tailor your experience.</p>
-      <div className="mt-6 space-y-3">
+      <div className="mt-6 space-y-4">
         {roles.map((r) => (
           <button
             key={r.id}
-            onClick={onNext}
-            className="w-full text-left flex items-start gap-3 rounded-xl border bg-card p-4 hover:border-primary hover:bg-accent transition-colors"
+            disabled={disabled}
+            onClick={() => onNext(r.id)}
+            className="w-full text-left flex items-start gap-3 rounded-xl border bg-card p-4 hover:border-primary hover:bg-accent transition-colors disabled:opacity-50 cursor-pointer"
           >
             <div className="h-10 w-10 rounded-lg bg-accent text-primary grid place-items-center shrink-0">
               <r.icon className="h-5 w-5" />
