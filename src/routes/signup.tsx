@@ -36,7 +36,7 @@ function Signup() {
       );
 
       toast.success("Signed up successfully!");
-      nav({ to: "/onboarding/$step", params: { step: "role" } });
+      nav({ to: "/onboarding/$step", params: { step: "details" } });
     } catch (err: any) {
       console.error("Sign-up error:", err);
       toast.error(err.message || "Google Sign-up failed.");
@@ -53,8 +53,8 @@ function Signup() {
       >
         <Logo variant="reversed" size="md" />
         <div>
-          <p className="font-display text-3xl font-bold leading-tight">Student-only, verified, no broker fees.</p>
-          <p className="text-white/70 mt-3 text-sm">Takes 2 minutes. We'll never share your details.</p>
+          <p className="font-display text-3xl font-semibold leading-tight">Verified homes, zero broker fees.</p>
+          <p className="text-white/70 mt-3 text-sm">Your perfect flat, minus the hassle.</p>
         </div>
         <p className="text-white/60 text-xs">© 2026 Rento Flats</p>
       </div>
@@ -69,7 +69,7 @@ function Signup() {
               type="button"
               disabled={loading}
               onClick={handleGoogleSignUp}
-              className="w-full h-[48px] rounded-[10px] bg-white border border-[#F4F4F8] text-[#18181B] flex items-center justify-center gap-2 font-semibold hover:bg-slate-50 transition-colors disabled:opacity-50 cursor-pointer"
+              className="w-full h-[48px] rounded-md bg-white border border-slate-300 text-slate-900 flex items-center justify-center gap-2 font-bold hover:bg-slate-50 transition-colors shadow-sm disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -96,7 +96,7 @@ function Signup() {
               Continue with Google
             </button>
             <p className="text-[11px] text-slate-text">
-              By continuing you agree to our terms. Your ID is only used to verify you're a student — it's never shown publicly.
+              By continuing you agree to our terms. Your ID is only used to verify your profile — it's never shown publicly.
             </p>
           </div>
           

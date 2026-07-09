@@ -7,7 +7,7 @@ type Tab = { to: string; label: string; icon: typeof Home; primary?: boolean; ba
 const TABS: Tab[] = [
   { to: "/home", label: "Home", icon: Home },
   { to: "/search", label: "Search", icon: Search },
-  { to: "/post-listing", label: "Post", icon: Plus, primary: true },
+  { to: "/post-property", label: "Post", icon: Plus, primary: true },
   { to: "/chat", label: "Chat", icon: MessageCircle, badge: 3 },
   { to: "/profile", label: "Profile", icon: User },
 ];
@@ -50,8 +50,8 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
             );
           })}
         </nav>
-        <Link to="/post-listing" className="m-3 inline-flex items-center justify-center gap-2 rounded-lg bg-coral text-coral-foreground px-4 py-3 text-sm font-semibold hover:opacity-90 transition-opacity">
-          <Plus className="h-4 w-4" /> Post a listing
+        <Link to="/post-property" className="m-3 inline-flex items-center justify-center gap-2 rounded-lg bg-coral text-coral-foreground px-4 py-3 text-sm font-semibold hover:opacity-90 transition-opacity">
+          <Plus className="h-4 w-4" /> Post a property
         </Link>
       </aside>
 

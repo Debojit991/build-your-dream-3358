@@ -15,17 +15,22 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as RoommatesRouteImport } from './routes/roommates'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as PostListingRouteImport } from './routes/post-listing'
+import { Route as PostPropertyRouteImport } from './routes/post-property'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MyListingsRouteImport } from './routes/my-listings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as OnboardingStepRouteImport } from './routes/onboarding.$step'
 import { Route as ListingIdRouteImport } from './routes/listing.$id'
 import { Route as ChatConversationIdRouteImport } from './routes/chat.$conversationId'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminStudentsRouteImport } from './routes/admin.students'
+import { Route as AdminPrivateRouteImport } from './routes/admin.private'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -57,9 +62,9 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PostListingRoute = PostListingRouteImport.update({
-  id: '/post-listing',
-  path: '/post-listing',
+const PostPropertyRoute = PostPropertyRouteImport.update({
+  id: '/post-property',
+  path: '/post-property',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotificationsRoute = NotificationsRouteImport.update({
@@ -92,10 +97,20 @@ const ChatRoute = ChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const OnboardingStepRoute = OnboardingStepRouteImport.update({
   id: '/onboarding/$step',
@@ -112,25 +127,45 @@ const ChatConversationIdRoute = ChatConversationIdRouteImport.update({
   path: '/$conversationId',
   getParentRoute: () => ChatRoute,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStudentsRoute = AdminStudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPrivateRoute = AdminPrivateRouteImport.update({
+  id: '/private',
+  path: '/private',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/chat': typeof ChatRouteWithChildren
   '/help': typeof HelpRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
   '/my-listings': typeof MyListingsRoute
   '/notifications': typeof NotificationsRoute
-  '/post-listing': typeof PostListingRoute
+  '/post-property': typeof PostPropertyRoute
   '/profile': typeof ProfileRoute
   '/roommates': typeof RoommatesRoute
   '/saved': typeof SavedRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/admin/private': typeof AdminPrivateRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/chat/$conversationId': typeof ChatConversationIdRoute
   '/listing/$id': typeof ListingIdRoute
   '/onboarding/$step': typeof OnboardingStepRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -140,57 +175,71 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/my-listings': typeof MyListingsRoute
   '/notifications': typeof NotificationsRoute
-  '/post-listing': typeof PostListingRoute
+  '/post-property': typeof PostPropertyRoute
   '/profile': typeof ProfileRoute
   '/roommates': typeof RoommatesRoute
   '/saved': typeof SavedRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/admin/private': typeof AdminPrivateRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/chat/$conversationId': typeof ChatConversationIdRoute
   '/listing/$id': typeof ListingIdRoute
   '/onboarding/$step': typeof OnboardingStepRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/chat': typeof ChatRouteWithChildren
   '/help': typeof HelpRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
   '/my-listings': typeof MyListingsRoute
   '/notifications': typeof NotificationsRoute
-  '/post-listing': typeof PostListingRoute
+  '/post-property': typeof PostPropertyRoute
   '/profile': typeof ProfileRoute
   '/roommates': typeof RoommatesRoute
   '/saved': typeof SavedRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/admin/private': typeof AdminPrivateRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/chat/$conversationId': typeof ChatConversationIdRoute
   '/listing/$id': typeof ListingIdRoute
   '/onboarding/$step': typeof OnboardingStepRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/chat'
     | '/help'
     | '/home'
     | '/login'
     | '/my-listings'
     | '/notifications'
-    | '/post-listing'
+    | '/post-property'
     | '/profile'
     | '/roommates'
     | '/saved'
     | '/search'
     | '/settings'
     | '/signup'
+    | '/admin/private'
+    | '/admin/students'
+    | '/admin/users'
     | '/chat/$conversationId'
     | '/listing/$id'
     | '/onboarding/$step'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -200,46 +249,56 @@ export interface FileRouteTypes {
     | '/login'
     | '/my-listings'
     | '/notifications'
-    | '/post-listing'
+    | '/post-property'
     | '/profile'
     | '/roommates'
     | '/saved'
     | '/search'
     | '/settings'
     | '/signup'
+    | '/admin/private'
+    | '/admin/students'
+    | '/admin/users'
     | '/chat/$conversationId'
     | '/listing/$id'
     | '/onboarding/$step'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/chat'
     | '/help'
     | '/home'
     | '/login'
     | '/my-listings'
     | '/notifications'
-    | '/post-listing'
+    | '/post-property'
     | '/profile'
     | '/roommates'
     | '/saved'
     | '/search'
     | '/settings'
     | '/signup'
+    | '/admin/private'
+    | '/admin/students'
+    | '/admin/users'
     | '/chat/$conversationId'
     | '/listing/$id'
     | '/onboarding/$step'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ChatRoute: typeof ChatRouteWithChildren
   HelpRoute: typeof HelpRoute
   HomeRoute: typeof HomeRoute
   LoginRoute: typeof LoginRoute
   MyListingsRoute: typeof MyListingsRoute
   NotificationsRoute: typeof NotificationsRoute
-  PostListingRoute: typeof PostListingRoute
+  PostPropertyRoute: typeof PostPropertyRoute
   ProfileRoute: typeof ProfileRoute
   RoommatesRoute: typeof RoommatesRoute
   SavedRoute: typeof SavedRoute
@@ -294,11 +353,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/post-listing': {
-      id: '/post-listing'
-      path: '/post-listing'
-      fullPath: '/post-listing'
-      preLoaderRoute: typeof PostListingRouteImport
+    '/post-property': {
+      id: '/post-property'
+      path: '/post-property'
+      fullPath: '/post-property'
+      preLoaderRoute: typeof PostPropertyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notifications': {
@@ -343,12 +402,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/onboarding/$step': {
       id: '/onboarding/$step'
@@ -371,8 +444,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatConversationIdRouteImport
       parentRoute: typeof ChatRoute
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/students': {
+      id: '/admin/students'
+      path: '/students'
+      fullPath: '/admin/students'
+      preLoaderRoute: typeof AdminStudentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/private': {
+      id: '/admin/private'
+      path: '/private'
+      fullPath: '/admin/private'
+      preLoaderRoute: typeof AdminPrivateRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminPrivateRoute: typeof AdminPrivateRoute
+  AdminStudentsRoute: typeof AdminStudentsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminPrivateRoute: AdminPrivateRoute,
+  AdminStudentsRoute: AdminStudentsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface ChatRouteChildren {
   ChatConversationIdRoute: typeof ChatConversationIdRoute
@@ -386,13 +496,14 @@ const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   ChatRoute: ChatRouteWithChildren,
   HelpRoute: HelpRoute,
   HomeRoute: HomeRoute,
   LoginRoute: LoginRoute,
   MyListingsRoute: MyListingsRoute,
   NotificationsRoute: NotificationsRoute,
-  PostListingRoute: PostListingRoute,
+  PostPropertyRoute: PostPropertyRoute,
   ProfileRoute: ProfileRoute,
   RoommatesRoute: RoommatesRoute,
   SavedRoute: SavedRoute,
